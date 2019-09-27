@@ -101,6 +101,21 @@ class QueryBuilder
             ->fetchAll();
     }
 
+    public function touch(Closure $closure)
+    {
+        $this->query->from($this->table, $this->alias);
+
+        if (!$this->query->getQueryPart('select')) {
+            $this->query->select(['*']);
+        }
+
+        $query = $this->getSQL();
+
+        $params = $this->getParameters();
+
+        return $this->doctrine->project($query, $params, $closure);
+    }
+
     public function project($query, array $params, Closure $function)
     {
         return $this->doctrine->project($query, $params, $function);
