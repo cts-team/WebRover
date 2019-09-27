@@ -10,6 +10,7 @@ use WebRover\Framework\Support\Str;
 /**
  * Class Model
  * @package WebRover\Framework\Database
+ * @mixin QueryBuilder
  */
 class Model
 {
@@ -21,6 +22,18 @@ class Model
     protected $connection;
 
     protected $table;
+
+    protected $primaryKey = 'id';
+
+    /**
+     * @param mixed $table
+     */
+    public function setTable($table)
+    {
+        $this->table = $table;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -34,6 +47,14 @@ class Model
         }
 
         return $this->table;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrimaryKey()
+    {
+        return $this->primaryKey;
     }
 
     private function query()
