@@ -8,16 +8,26 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use WebRover\Framework\Kernel\Event\GetResponseForExceptionEvent;
 use WebRover\Framework\Kernel\KernelEvents;
+use Whoops\RunInterface;
 
+/**
+ * Class ExceptionListener
+ * @package WebRover\Framework\Kernel\EventListener
+ */
 class ExceptionListener implements EventSubscriberInterface
 {
+    private $whoops;
+
+    public function __construct(RunInterface $whoops)
+    {
+        $this->whoops = $whoops;
+    }
+
     public function onException(GetResponseForExceptionEvent $event)
     {
-        $whoops = app()->make('whoops');
-
         $exception = $event->getException();
 
-        $response = $whoops->handleException($exception);
+        $response = $this->whoops->handleException($exception);
 
         $event->setResponse(new Response($response));
     }
