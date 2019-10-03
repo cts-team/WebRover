@@ -8,6 +8,7 @@ use WebRover\Framework\Container\ServiceProvider;
 use WebRover\Framework\Kernel\Config\FileLocator;
 use WebRover\Framework\Kernel\Controller\ArgumentResolver;
 use WebRover\Framework\Kernel\Controller\ControllerResolver;
+use WebRover\Framework\Kernel\EventListener\ExceptionListener;
 use WebRover\Framework\Kernel\EventListener\LocaleListener;
 use WebRover\Framework\Kernel\EventListener\ResponseListener;
 use WebRover\Framework\Kernel\EventListener\RouterListener;
@@ -52,12 +53,16 @@ class KernelProvider extends ServiceProvider
             $whoops->allowQuit(false);
 
             $whoops->writeToOutput(false);
-            
+
             return $whoops;
         });
 
         $this->app->singleton('file_locator', function (Application $app) {
             return new FileLocator($app, $app->getConfigPath(), [$app->getRootPath()]);
+        });
+
+        $this->app->singleton(ExceptionListener::class, function (Application $app) {
+            return new ExceptionListener($app->make('whoops'));
         });
 
         /**
@@ -161,6 +166,7 @@ class KernelProvider extends ServiceProvider
         $app = $this->app;
         $event = $app->make('event');
 
+        $event->addSubscriber($app->make(ExceptionListener::class));
         $event->addSubscriber($app->make(RouterListener::class));
         $event->addSubscriber($app->make(LocaleListener::class));
         $event->addSubscriber($app->make(TranslatorListener::class));
