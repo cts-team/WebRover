@@ -49,6 +49,10 @@ class KernelProvider extends ServiceProvider
 
             $whoops->prependHandler($handler);
 
+            $whoops->allowQuit(false);
+
+            $whoops->writeToOutput(false);
+            
             return $whoops;
         });
 
