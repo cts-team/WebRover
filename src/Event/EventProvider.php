@@ -21,10 +21,13 @@ class EventProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton('event', function (Application $app) {
+        if (!$this->app->has('event')) {
+            $this->app->singleton('event', function (Application $app) {
+                return new EventDispatcher();
+            });
+        }
 
-            $dispatcher = new EventDispatcher();
-
+        $this->app->extend('event', function (EventDispatcher $dispatcher, Application $app) {
             foreach ($this->listen as $event => $listeners) {
                 $listeners = array_reverse($listeners);
 
