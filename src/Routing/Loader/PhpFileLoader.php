@@ -20,14 +20,14 @@ class PhpFileLoader extends FileLoader
     ];
 
     /**
-     * Loads a Yaml file.
+     * Loads a file.
      *
-     * @param string $file A Yaml file path
+     * @param string $file A file path
      * @param string|null $type The resource type
      *
      * @return RouteCollection A RouteCollection instance
      *
-     * @throws \InvalidArgumentException When a route can't be parsed because YAML is invalid
+     * @throws \InvalidArgumentException When a route can't be parsed because is invalid
      */
     public function load($file, $type = null)
     {
@@ -59,7 +59,7 @@ class PhpFileLoader extends FileLoader
 
         // not an array
         if (!\is_array($parsedConfig)) {
-            throw new \InvalidArgumentException(sprintf('The file "%s" must contain a YAML array.', $path));
+            throw new \InvalidArgumentException(sprintf('The file "%s" must contain a array.', $path));
         }
 
         foreach ($parsedConfig as $name => $config) {
@@ -89,7 +89,7 @@ class PhpFileLoader extends FileLoader
      * @param RouteCollection $collection A RouteCollection instance
      * @param string $name Route name
      * @param array $config Route definition
-     * @param string $path Full path of the YAML file being processed
+     * @param string $path Full path of the file being processed
      */
     protected function parseRoute(RouteCollection $collection, $name, array $config, $path)
     {
@@ -115,7 +115,7 @@ class PhpFileLoader extends FileLoader
      *
      * @param RouteCollection $collection A RouteCollection instance
      * @param array $config Route definition
-     * @param string $path Full path of the YAML file being processed
+     * @param string $path Full path of the file being processed
      * @param string $file Loaded file name
      */
     protected function parseImport(RouteCollection $collection, array $config, $path, $file)
