@@ -70,6 +70,14 @@ class Model
     {
         return $this->query()->table($this->getTable());
     }
+    
+    /**
+     * @return Manager
+     */
+    public static function getResolver()
+    {
+        return self::$resolver;
+    }
 
     /**
      * @param mixed $resolver
