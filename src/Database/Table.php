@@ -415,7 +415,9 @@ class Table
     private function getTable()
     {
         $sm = $this->connection->getDoctrine()->getSchemaManager();
-        $table = $sm->listTableDetails($this->tableName);
+        $params = $this->connection->getParams();
+        $prefix = isset($params['prefix']) ? $params['prefix'] : '';
+        $table = $sm->listTableDetails($prefix . $this->tableName);
         $cloned = clone $table;
 
         return [$table, $cloned];
