@@ -66,6 +66,8 @@ class Manager
         if (is_null($connectionName)) {
             $connectionName = $this->getDefaultConnectionName();
         }
+        
+        $connectionName = $this->identifier($connectionName);
 
         if (!isset($this->links[$connectionName])) {
             $connections = $this->params['connections'];
