@@ -28,7 +28,7 @@ abstract class Validator
         return $this->data;
     }
 
-    protected function validate()
+    private function validate()
     {
         $obj = new \ReflectionObject($this);
         $methods = $obj->getMethods(\ReflectionMethod::IS_PROTECTED);
