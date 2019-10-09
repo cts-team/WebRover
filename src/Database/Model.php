@@ -72,6 +72,14 @@ class Model
     }
     
     /**
+     * @return Connection
+     */
+    public function getConnection()
+    {
+        return self::$resolver->getConnection($this->connection);
+    }
+    
+    /**
      * @return Manager
      */
     public function getResolver()
