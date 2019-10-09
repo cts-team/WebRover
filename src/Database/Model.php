@@ -74,7 +74,7 @@ class Model
     /**
      * @return Manager
      */
-    public static function getResolver()
+    public function getResolver()
     {
         return self::$resolver;
     }
