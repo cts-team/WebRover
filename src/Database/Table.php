@@ -33,7 +33,7 @@ class Table
     {
         list($originalTable, $clonedTable) = $this->getTable();
 
-        return $clonedTable->getColumn();
+        return $clonedTable->getColumns();
     }
 
     /**
