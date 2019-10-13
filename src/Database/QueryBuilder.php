@@ -123,7 +123,7 @@ class QueryBuilder
 
     public function column($column)
     {
-        return $this->fetchAll($column);
+        return array_column($this->fetchAll($column), $column);
     }
 
     public function where($predicates)
