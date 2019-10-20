@@ -308,3 +308,21 @@ if (!function_exists('resource_path')) {
         return app()->getResourcePath() . ($path ? DIRECTORY_SEPARATOR . $path : '');
     }
 }
+
+if (!function_exists('public_url')) {
+    /**
+     * @param string $path
+     * @param bool $absolute
+     * @return string
+     */
+    function public_url($path = '', $absolute = true)
+    {
+        $url = \request()->getBaseUrl();
+
+        if ($absolute) {
+            $url = \request()->getSchemeAndHttpHost() . $url;
+        }
+
+        return $url . '/' . $path;
+    }
+}
