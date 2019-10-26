@@ -43,6 +43,10 @@ abstract class Validator
             if (isset($this->alias[$name])) {
                 $var = $this->alias[$name];
             }
+            
+            if (!isset($this->data[$var])){
+                $this->data[$var] = null;
+            }
 
             $r = $this->$name($this->data[$var]);
 
