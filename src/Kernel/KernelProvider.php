@@ -10,6 +10,7 @@ use WebRover\Framework\Kernel\Controller\ArgumentResolver;
 use WebRover\Framework\Kernel\Controller\ControllerResolver;
 use WebRover\Framework\Kernel\EventListener\ExceptionListener;
 use WebRover\Framework\Kernel\EventListener\LocaleListener;
+use WebRover\Framework\Kernel\EventListener\RequestListener;
 use WebRover\Framework\Kernel\EventListener\ResponseListener;
 use WebRover\Framework\Kernel\EventListener\RouterListener;
 use WebRover\Framework\Kernel\EventListener\SaveSessionListener;
@@ -132,6 +133,10 @@ class KernelProvider extends ServiceProvider
             return new StreamedResponseListener();
         });
 
+        $this->app->singleton(RequestListener::class, function (Application $app) {
+            return new RequestListener();
+        });
+
         /**
          * 注册控制器解析者服务
          */
@@ -175,5 +180,6 @@ class KernelProvider extends ServiceProvider
         $event->addSubscriber($app->make(ValidateRequestListener::class));
         $event->addSubscriber($app->make(ResponseListener::class));
         $event->addSubscriber($app->make(StreamedResponseListener::class));
+        $event->addSubscriber($app->make(RequestListener::class));
     }
 }
