@@ -402,8 +402,11 @@ class Table
     {
         $comparator = new Comparator();
         $tableDiff = $comparator->diffTable($originalTable, $clonedTable);
-        $sm = $this->connection->getDoctrine()->getSchemaManager();
-        $sm->alterTable($tableDiff);
+        if ($tableDiff) {
+            $sm = $this->connection->getDoctrine()->getSchemaManager();
+            $sm->alterTable($tableDiff);
+        }
+        
         return $this;
     }
 
