@@ -40,12 +40,13 @@ class CookieListener implements EventSubscriberInterface
                 continue;
             }
 
-
             $value = $request->cookies->get($cookie);
 
-            try {
-                $value = $this->encryter->decrypt($value);
-            } catch (DecryptException $exception) {
+            if ($value !== '' && !is_null($value) && is_string($value)) {
+                try {
+                    $value = $this->encryter->decrypt($value);
+                } catch (DecryptException $exception) {
+                }
             }
 
             $request->cookies->set($cookie, $value);
@@ -58,6 +59,10 @@ class CookieListener implements EventSubscriberInterface
 
         foreach ($response->headers->getCookies() as $cookie) {
             if ($this->isDisabled($cookie->getName())) {
+                continue;
+            }
+
+            if (is_null($cookie->getValue())) {
                 continue;
             }
 
