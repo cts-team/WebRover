@@ -333,6 +333,22 @@ class QueryBuilder
             ->fetch(\PDO::FETCH_COLUMN);
     }
 
+    public function filterData(array $data)
+    {
+        $sm = $this->doctrine->getSchemaManager();
+        $columns = $sm->listTableColumns($this->table);
+        $result = [];
+        foreach ($columns as $column) {
+            $name = $column->getName();
+            if (!isset($data[$name])) {
+                continue;
+            }
+            $result[$name] = $data[$name];
+        }
+
+        return $result;
+    }
+
     private function newQuery()
     {
         return new \Doctrine\DBAL\Query\QueryBuilder($this->connection->getDoctrine());
