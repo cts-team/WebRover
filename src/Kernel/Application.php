@@ -165,7 +165,7 @@ abstract class Application extends Container implements KernelInterface, Reboota
 
     public function getPublicPath()
     {
-        return $this->publicPath;
+        return realpath($this->publicPath);
     }
 
     public function getRootPath()
