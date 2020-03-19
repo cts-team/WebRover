@@ -65,7 +65,7 @@ class AssetProvider extends ServiceProvider
                 $params['base_urls'] = [$params['base_urls']];
             }
 
-            if (!isset($params['base_path']) && trim($params['base_path'])) {
+            if (isset($params['base_path']) && trim($params['base_path'])) {
                 $params['base_path'] = trim($params['base_path']);
 
                 foreach ($params['base_urls'] as &$base_url) {
