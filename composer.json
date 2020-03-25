@@ -13,7 +13,7 @@
     "require": {
         "php": ">=5.6.0",
         "doctrine/dbal": "~2.5.10",
-		"symfony/filesystem": "~3.4.30",
+	"symfony/filesystem": "~3.4.30",
         "symfony/event-dispatcher": "~3.4.30",
         "symfony/config": "~3.4.30",
         "symfony/security-csrf": "~3.4.30",
