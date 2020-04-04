@@ -403,7 +403,7 @@ trait ConnectionTrait
      */
     public function query(...$args)
     {
-        return $this->doctrine->query($args);
+        return $this->doctrine->query(...$args);
     }
 
     /**
